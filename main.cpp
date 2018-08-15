@@ -7,7 +7,7 @@ int main()
 	// create window
 	sf::RenderWindow wnd;
 	wnd.create(sf::VideoMode(800, 600), "TileTest");
-	wnd.setFramerateLimit(60);
+	wnd.setVerticalSyncEnabled(true);
 
 	// load a level and spawn the player
 	gm::Level lvl(wnd);

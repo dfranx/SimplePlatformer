@@ -1,7 +1,7 @@
 #include "Level.h"
 #include "Tiles.h"
 #include "Config.h"
-#include <Tily/Settings.h>
+#include "libs/Tily.h"
 #include <fstream>
 
 namespace gm
@@ -11,7 +11,7 @@ namespace gm
 		m_wnd = &tgt;
 
 		ty::Settings::TileSize = TileSize;
-		ty::Settings::TextureWidth = MaxTextureSize;
+		ty::Settings::TextureSize = MaxTextureSize;
 		ty::Settings::ChunkWidth = ChunkWidth;
 		ty::Settings::ChunkHeight = ChunkHeight;
 
@@ -23,7 +23,7 @@ namespace gm
 
 		m_load("data/level.bin");
 
-		// set our function that will decide if a tile is solid or not
+		// set our filter that will decide if a tile is solid or not
 		m_world.GetCollisionType = [](int id) -> cl::CollisionType {
 			if (id == Tiles::COIN || id == Tiles::SPIKES)
 				return cl::CollisionType::Cross;
@@ -71,15 +71,18 @@ namespace gm
 			if (size < 1)
 				return;
 
+			// first two bytes tell us the size
 			int width = memblock[0];
 			int height = memblock[1];
 
+			// check if the size is valid
 			if (size < width*height * 2 + 2)
 				return;
 
 			m_tmap.Create(width, height, 2);
 			m_world.Create(width, height, TileSize, TileSize);
 
+			// read 1 byte for layer, one byte for id
 			for (int i = 0; i < width*height * 2; i += 2) {
 				int ai = i / 2;
 				int ri = i + 2;
@@ -91,7 +94,7 @@ namespace gm
 				int id = memblock[ri + 1];
 
 				m_tmap.Set(bx, by, layer, id);
-				m_world.SetObject(bx, by, (layer*11) + id);
+				m_world.SetObject(bx, by, (layer*Tiles::EMPTY_DEC) + id);
 			}
 
 			delete[] memblock;

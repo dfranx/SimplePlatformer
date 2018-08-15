@@ -20,12 +20,12 @@ namespace gm
 		m_spr.setPosition(x, y);
 		m_spr.setTexture(m_tex);
 
-		// initialize function that will handle the collision
+		// initialize filter that will handle the collision
 		m_onCollision = [&](int id, int x, int y, bool hor, cl::GridWorld* col) {
 			if (id == Tiles::BONUS) { // bonus block
 				if (m_vel.y < 0 && !hor) { // must be hit from below
 					m_currentMap->Set(x, y, 0, Tiles::BONUS_USED); // replace it on tilemap
-					col->SetObject(x, y, Tiles::BONUS_USED); // and in our physics world
+					col->SetObject(x, y, Tiles::BONUS_USED); // and in our physics world so that it doesnt report this event anymore
 				}
 			}
 			else if (id == Tiles::COIN) {
@@ -35,7 +35,7 @@ namespace gm
 			else if (id == Tiles::SPIKES) {
 				sf::FloatRect pBounds = m_spr.getGlobalBounds();
 				if (pBounds.top + pBounds.height >= y * TileSize + TileSize / 2 && // only if we hit the second half of the tile
-				   !(pBounds.left >= x*TileSize + TileSize*0.9f || pBounds.left + pBounds.width <= x*TileSize + TileSize*0.1f)) { // allow for some 'error'
+				   !(pBounds.left >= x*TileSize + TileSize*0.7f || pBounds.left + pBounds.width <= x*TileSize + TileSize*0.3f)) { // allow for some 'error'
 					m_spr.setPosition(m_spawn); // return to the spawn
 					m_vel.x = 0;
 					m_vel.y = 0;
@@ -117,12 +117,15 @@ namespace gm
 
 		m_spr.setPosition(iPos);
 		tgt.draw(m_spr);
+
 		m_spr.setPosition(pos);
 	}
 
 	sf::Vector2f Player::GetInterpolationPos()
 	{
 		float alpha = m_elTime / PhysicsStep;
-		return GetPosition() * alpha + m_prevPos * (1.0f - alpha);
+		sf::Vector2f futurePos = GetPosition();
+
+		return futurePos * alpha + m_prevPos * (1.0f - alpha);
 	}
 }

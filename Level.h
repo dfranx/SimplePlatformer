@@ -5,8 +5,8 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
-#include <Colly/GridWorld.h>
-#include <Tily/Map.h>
+#include "libs/Colly.h"
+#include "libs/Tily.h"
 #include "Player.h"
 
 namespace gm
@@ -14,12 +14,16 @@ namespace gm
 	class Level
 	{
 	public:
+		// set up tily and colly
 		Level(sf::RenderWindow& tgt);
 
+		// tells the player that he is currently on this map
 		void CreatePlayer(Player& pl);
 
+		// do the physics
 		void Update(Player& pl);
 
+		// render the world and the player
 		void Draw(Player& pl);
 
 	private:

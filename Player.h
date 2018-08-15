@@ -6,8 +6,8 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector2.hpp>
-#include <Colly/GridWorld.h>
-#include <Tily/Map.h>
+#include "libs/Colly.h"
+#include "libs/Tily.h"
 
 namespace gm
 {
@@ -16,12 +16,16 @@ namespace gm
 	public:
 		Player(float x, float y);
 
+		// tell the player which map he is currently on
 		void SetMap(ty::Map& map);
 
+		// update the player physics
 		void Update(float dt, cl::GridWorld& world);
 
+		// draw the player
 		void Draw(sf::RenderTarget& tgt);
 
+		// interpolate position
 		sf::Vector2f GetInterpolationPos();
 
 		inline sf::Vector2f GetPosition() { return m_spr.getPosition(); }
@@ -31,7 +35,7 @@ namespace gm
 		sf::Vector2f m_vel;		// velocity
 		sf::Vector2f m_prevPos;	// previous position (used for interpolation)
 		sf::Vector2f m_spawn;	// spawn position
-		bool m_onPlatform;		// are we standing or falling?
+		bool m_onPlatform;		// are we standing or falling? can we jump?
 		bool m_died;			// did we just die?
 		float m_elTime;			// used for smooth physics on all FPS
 		
