@@ -1,7 +1,7 @@
 #include "Level.h"
 #include "Tiles.h"
 #include "Config.h"
-#include "libs/Tily.h"
+#include "libs/Tily/Tily.h"
 #include <fstream>
 
 namespace gm

@@ -5,8 +5,8 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
-#include "libs/Colly.h"
-#include "libs/Tily.h"
+#include "libs/Colly/Colly.h"
+#include "libs/Tily/Tily.h"
 #include "Player.h"
 
 namespace gm

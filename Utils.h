@@ -1,7 +1,7 @@
 #ifndef __GAME_UTILS_H__
 #define __GAME_UTILS_H__
 
-#include "libs/Colly.h"
+#include "libs/Colly/Colly.h"
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 

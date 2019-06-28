@@ -6,8 +6,8 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector2.hpp>
-#include "libs/Colly.h"
-#include "libs/Tily.h"
+#include "libs/Colly/Colly.h"
+#include "libs/Tily/Tily.h"
 
 namespace gm
 {

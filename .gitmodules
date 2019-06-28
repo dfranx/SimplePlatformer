@@ -1,0 +1,6 @@
+[submodule "libs/Tily"]
+	path = libs/Tily
+	url = https://github.com/dfranx/Tily
+[submodule "libs/Colly"]
+	path = libs/Colly
+	url = https://github.com/dfranx/Colly
